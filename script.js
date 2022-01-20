@@ -1,17 +1,17 @@
 let list = []
+let subList = []
 
 function generateRandomColor()
 {
-    var randomColor = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
     return randomColor;
 }
 
 const ourList = document.querySelector('[data-list]')
 const inputList = document.getElementById('input-text')
-const addButton = document.querySelector('[data-add-button]')
-const ourDivchik = document.querySelector('[data-our-div]')
+const addTaskButton = document.querySelector('[data-add-button]')
 
-addButton.addEventListener('click', button => {
+addTaskButton.addEventListener('click', button => {
     if (inputList.value == "") {
         Swal.fire({
         title: 'Oops...',
@@ -63,23 +63,29 @@ addButton.addEventListener('click', button => {
       return
     }
       else  
-      list.push(inputList.value)
+      subList.push(inputList.value)
 
-            const lishka = document.createElement('ol')
+            const subLishka = document.createElement('ol')
             const btn = document.createElement('button')
 
-            lishka.setAttribute("id", "second-lishka")
+            subLishka.setAttribute("id", "second-lishka")
             btn.setAttribute("id", "delete-button")
 
-            lishka.innerText = list[list.length-1]
-            secondDiv.appendChild(lishka)
+            subLishka.innerText = subList[subList.length-1]
+            secondDiv.appendChild(subLishka)
             secondDiv.appendChild(btn)
-            console.log(list)
+            console.log(subList)
 
             btn.addEventListener('click', e => {
-                lishka.parentNode.removeChild(lishka)
+                subLishka.parentNode.removeChild(subLishka)
                 btn.parentNode.removeChild(btn)
             })
             inputList.value = ""
+            
+            
+            subLishka.addEventListener('click', e => {
+              subLishka.classList.toggle("completed-task")
+              
+            })
     })
 })

@@ -5,16 +5,10 @@
 body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, rgb(30, 30, 255), rgb(255, 28, 28));
-        height: 900px;
-        overflow-y: hidden;
+        background: linear-gradient(135deg, rgb(30, 30, 255), rgb(255, 28, 28)) no-repeat;
+        background-size: cover;
+        min-height: 96vh;
     }
-
-.prosto {
-    display: flex;
-    justify-content: flex-end;
-    height: 1000px;
-}
 
 .input-block {
     margin-top: 4vh;
@@ -44,8 +38,12 @@ input:placeholder-shown {
     font-size: min(max(12px, 2vw), 25px);
 }
 
-input:hover {
+input:focus {
     width: 79vw;
+    opacity: 1;
+}
+
+input:hover {
     opacity: 1;
 }
 
@@ -118,6 +116,9 @@ input:hover {
     display: flex;
     color: rgb(12, 12, 12);
     font-weight: 550;
+    cursor: default;
+    text-decoration: none;
+    user-select: none;
 }
 
 #add-sub-task {
@@ -145,12 +146,13 @@ input:hover {
 
 #first-div {
     display: grid;
-    grid-template-columns: 92.5% 3% 3%;
+    grid-template-columns: 90% 4% 4%;
 }
 
 #second-div {
     display: grid;
-    grid-template-columns: 94% 6%;
+    grid-template-columns: 94% 3%;
+    transition: 0.3s;
 }
 
 #second-lishka {
@@ -160,6 +162,9 @@ input:hover {
     color: rgb(12, 12, 12);
     font-weight: 550;
     list-style: circle;
+    cursor: default;
+    transition: 0.3s;
+    user-select: none;
 }
 
 #main-div {
@@ -171,8 +176,73 @@ input:hover {
     opacity: 0.7;
     display: flex;
     height: 1px;
-    width: 80vw;
+    width: 78vw;
     border-radius: 50px;
     transform: translate(3vw, 0.5vh);
+    user-select: none;
+}
+
+.completed-task {
+    text-decoration: line-through;
+    text-decoration-thickness: min(max(1px, 0.25vw), 3px);
+    text-decoration-color: black;
+    opacity: 0.4;
+    transition: 0.3s;
+    transform: translateX(1vw);
+}
+
+@media (min-width: 700px) and (max-width: 1000px) {
+    #first-div {
+        grid-template-columns: 93% 3% 3%;
+    }
+
+    #second-div {
+        grid-template-columns: 96% 3%;
+    }
+
+    #break-line {
+        width: 81vw
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+    #first-div {
+        grid-template-columns: 94% 2.5% 2.5%;
+    }
+
+    #second-div {
+        grid-template-columns: 96.5% 2.5%
+    }
+
+    #break-line {
+        width: 82vw
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1800px) {
+    #first-div {
+        grid-template-columns: 95% 2% 2%;
+    }
     
+    #second-div {
+        grid-template-columns: 97% 2%
+    }
+
+    #break-line {
+        width: 83vw
+    }
+}
+
+@media (min-width: 1800px) {
+    #first-div {
+        grid-template-columns: 96% 1.7% 1.7%;
+    }
+    
+    #second-div {
+        grid-template-columns: 97.7% 1.7%
+    }
+
+    #break-line {
+        width: 83.5vw
+    }
 }
