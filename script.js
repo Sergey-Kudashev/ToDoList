@@ -14,7 +14,8 @@ function checkIfAllSubTasksDone(parentTaskId) {
   allParentTaskSubTasks.forEach((el) => {
     if (!el.done) {
       allDone = false;
-      break;
+
+      return;
     }
   });
 
@@ -34,7 +35,7 @@ addTaskButton.addEventListener('click', button => {
     return
   }
 
-  const taskId = Date.now();
+  const taskId = (Date.now()).toString();
   const taskText = inputList.value;
 
   list.push({
@@ -92,7 +93,7 @@ addTaskButton.addEventListener('click', button => {
 
     // subList.push(inputList.value)
 
-    const subTaskId = Date.now();
+    const subTaskId = (Date.now()).toString();
     const subTaskText = inputList.value;
 
     const parentTaskId = e.target.dataset.id;
@@ -116,7 +117,6 @@ addTaskButton.addEventListener('click', button => {
     subLishka.innerText = subTaskText;
     secondDiv.appendChild(subLishka)
     secondDiv.appendChild(btn)
-    console.log(subList)
 
     btn.addEventListener('click', e => {
       subLishka.parentNode.removeChild(subLishka)
@@ -133,15 +133,22 @@ addTaskButton.addEventListener('click', button => {
       const subTask = list.find((el) => el.id === subTaskId);
       const parentTask = list.find((el) => el.id === subTask.parentTaskId);
 
-      subTask.done = subLishka.classList.includes('completed-task');
+      subTask.done = subLishka.classList.contains('completed-task');
+      parentTask.done = checkIfAllSubTasksDone(parentTask.id);
+      
+      if (parentTask.done) {
+        const parentTaskElement = document.querySelector('[data-id]', parentTask.id);
 
-      if (subTask.done) {
-        parentTask.done = checkIfAllSubTasksDone(parentTask.id);
-        
-        if (parentTask.done) {
-          const parentTaskElement = document.querySelector('[data-id]', parentTask.id);
+        const lishka = parentTaskElement.parentNode.querySelector('#lishka'); 
 
-          parentTaskElement.classList.toggle('completed-task');
+        lishka.classList.toggle('completed-task');
+      } else {
+        const parentTaskElement = document.querySelector('[data-id]', parentTask.id);
+
+        const lishka = parentTaskElement.parentNode.querySelector('#lishka'); 
+
+        if (lishka.classList.contains('completed-task')) {
+          lishka.classList.toggle('completed-task');
         }
       }
     })
